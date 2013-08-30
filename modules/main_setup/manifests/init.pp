@@ -4,7 +4,9 @@ class main_setup{
         'build-essential',
         'vim',
         'curl',
-        'git'
+        'git',
+	'sqlite3',
+	'subversion'
       ]:
           ensure  => 'installed',
   }

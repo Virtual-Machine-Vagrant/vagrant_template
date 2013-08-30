@@ -1,16 +1,13 @@
 class main_setup{
-    exec { "apt-get update":
-        command => "/usr/bin/apt-get update"
-    }
-
     package {
         [
         'build-essential',
         'vim',
         'curl',
-        'git'
+        'git',
+	'sqlite3',
+	'subversion'
       ]:
-          require => Exec["apt-get update"],
           ensure  => 'installed',
   }
 }

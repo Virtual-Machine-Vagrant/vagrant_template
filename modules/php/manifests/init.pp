@@ -14,13 +14,24 @@ class php {
 	    ensure => present;
 	  "php-pear":
 	    ensure => present;
+	  "php5-sqlite":
+	    ensure => present;
+	  "php5-xdebug":
+	    ensure => present;
+	}->
+	file { "/etc/php5/apache2/conf.d/20-xdebug.ini":
+	  owner => "root", group => "root",
+	  source => "puppet:///modules/php/xdebug.ini",
+	  require => Package["php5-xdebug"],
 	}->
 	exec {
 	  "composer":
-	    command => "/usr/bin/curl -sS https://getcomposer.org/installer | php --install-dir=/vagrant/www",
+	    creates => "/vagrant/www/composer.phar",
+	    command => "curl -sS https://getcomposer.org/installer | php -- --install-dir=/vagrant/www",
 	    require => Package["php5"];
 	  "phing":
-	    command => "/usr/bin/pear channel-discover pear.phing.info && /usr/bin/pear install [--alldeps] phing/phing",
+	    creates => "/usr/bin/phing",
+	    command => "sudo pear channel-discover pear.phing.info && sudo pear install [--alldeps] phing/phing",
 	    require => Package["php-pear"];
 	}
 } 

@@ -1,5 +1,3 @@
-Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
-
 include main_setup
 include apache2
 include mysql::server
