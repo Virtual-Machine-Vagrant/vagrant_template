@@ -12,12 +12,7 @@ class mysql::server {
     ensure => running,
     subscribe => File["/etc/mysql/my.cnf"],
     require => Package["mysql-server"],
-  }#->
-  #exec { "set-mysql-password":
-   # command => "mysqladmin -uroot password ${mysql_password}",
-    #require => Service["mysql"],
-    #logoutput => true,
-  #}
+  }
   define db( $user, $password ) {
     if Exec["set-mysql-password"] {
       exec { "create-${name}-db":
